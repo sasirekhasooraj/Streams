@@ -22,10 +22,19 @@ public class TestTransaction {
                         new Transaction(mario, 2012, 710),
                         new Transaction(mario, 2012, 700),
                         new Transaction(alan, 2012, 950));
-
+                //Find all the transactions that occurred in 2012 and sort them by transaction amount (from low to high)
                 transactions.stream()
                            .filter((t) -> t.getYear() == 2012)
                           .sorted((t1, t2) -> Integer.compare(t1.getValue(), t2.getValue()))
+                        .forEach(System.out::println);
+                //Traders have worked in different cities?
+                transactions.stream()
+                                .map((t) -> t.getTrader().getCity())
+                                .distinct()
+                                .forEach(System.out::println);
+                transactions.stream()
+                        .filter((t) -> t.getTrader().getCity().equals("Cambridge"))
+                        .sorted((t1, t2) -> t1.getTrader().getName().compareTo(t2.getTrader().getName()))
                         .forEach(System.out::println);
         }
 }
