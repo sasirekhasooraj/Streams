@@ -1,0 +1,35 @@
+public class TestTransaction {
+
+    List<Transaction> transactions =null;
+
+    @Before
+    public void before(){
+        Trader raoul = new Trader("Raoul","Cambridge");
+        Trader mario = new Trader("Mario","Milan");
+        Trader alan = new Trader("Alan","Cambridge");
+        Trader brain = new Trader("Brain","Cambridge");
+
+        transactions = Arrays.asList(
+                new Transaction(brain,2011,300),
+                new Transaction(raoul,2012,1000),
+                new Transaction(raoul,2011,400),
+                new Transaction(mario,2012,710),
+                new Transaction(mario,2012,700),
+                new Transaction(alan,2012,950)
+        );
+    }
+
+// 1. Find all the transactions that occurred in 2012 and sort them by transaction amount (from low to high)
+// 2. Traders have worked in different cities?
+// 3. Find all traders from Cambridge and sort by name.
+// 4. Return the name strings of all traders, sorted alphabetically
+// 5. Do any traders work in Milan?
+// 6. Among all transactions, what is the maximum transaction amount?
+// 7. Print the total turnover of traders living in Cambridge
+// 8. Find the transaction with the smallest transaction amount.
+
+
+
+}
+
+
