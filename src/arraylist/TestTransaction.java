@@ -2,10 +2,12 @@
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.ToString;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 public class TestTransaction {
         public static void main(String[] args) {
 
@@ -36,6 +38,43 @@ public class TestTransaction {
                         .filter((t) -> t.getTrader().getCity().equals("Cambridge"))
                         .sorted((t1, t2) -> t1.getTrader().getName().compareTo(t2.getTrader().getName()))
                         .forEach(System.out::println);
+                // 4. Return the name strings of all traders, sorted alphabetically
+                transactions.stream()
+                                .map((t) -> t.getTrader().getName())
+                                .distinct()
+                                .sorted()
+                                .forEach(System.out::println);
+
+                // 5. Do any traders work in Milan?
+               boolean b = transactions.stream()
+                                .anyMatch((t) -> t.getTrader().getCity().equals("Milan"));
+                        System.out.println(b);
+
+                // 6. Among all transactions, what is the maximum transaction amount?
+                 Optional<Integer> first = transactions.stream()
+                                .map(Transaction::getValue)
+                                .max(Integer::compareTo);
+                        System.out.println(first.get());
+
+                        Optional<Integer> max = transactions.stream()
+                                .map(Transaction::getValue)
+                                .collect(Collectors.maxBy(Integer::compareTo));
+                        System.out.println(max.get());
+
+
+                // 7. Print the total turnover of traders living in Cambridge
+                Optional<Integer> sum = transactions.stream()
+                                .filter((t) -> t.getTrader().getCity().equals("Cambridge"))
+                                .map(Transaction::getValue)
+                                .reduce(Integer::sum);
+                        System.out.println(sum.get());
+
+                // 8. Find the transaction with the smallest transaction amount.
+                Optional<Transaction> min = transactions.stream()
+                                .min((t1, t2) -> Integer.compare(t1.getValue(), t2.getValue()));
+
+                        System.out.println(min.get());
+
         }
 }
 
@@ -51,11 +90,7 @@ public class TestTransaction {
         }
 
 
-        /**
-         * @Description: Trading
-         * @author: pilaf
-         * @create: 2019-10-09 20:53
-         */
+
         @Data
         @AllArgsConstructor
         @ToString
